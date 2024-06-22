@@ -12,25 +12,42 @@
   </head>
   <body>
    <div class="container-fluid text-center">
-    <h1>JavaScript Calculator (w/ Immediate Execution Logic)</h1>
-    <div id="display" class="bg-light">display</div>
-    <button id="equals" class="btn btn-success">=</button>
-    <button id="zero" class="btn btn-primary">0</button>
-    <button id="one" class="btn btn-primary">1</button>
-    <button id="two" class="btn btn-primary">2</button>
-    <button id="three" class="btn btn-primary">3</button>
-    <button id="four" class="btn btn-primary">4</button>
-    <button id="five" class="btn btn-primary">5</button>
-    <button id="six" class="btn btn-primary">6</button>
-    <button id="seven" class="btn btn-primary">7</button>
-    <button id="eight" class="btn btn-primary">8</button>
-    <button id="nine" class="btn btn-primary">9</button>
-    <button id="add" class="btn btn-success">+</button>
-    <button id="subtract" class="btn btn-success">-</button>
-    <button id="multiply" class="btn btn-success">*</button>
-    <button id="divide" class="btn btn-success">/</button>
-    <button id="decimal" class="btn btn-success">.</button>
-    <button id="clear" class="btn btn-warning">AC</button>
+    <div class="row text-center">
+     <div class="col">
+      <h1>JavaScript Calculator (w/ Immediate Execution Logic)</h1>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col">
+      <div id="display" class="bg-light my-3 py-3"></div>
+     </div>
+    </div>
+    <div class="row">
+     <div class="col">
+      <button id="zero" class="btn btn-primary btn-block" onclick="updateDisplay(0)">0</button>
+      <button id="one" class="btn btn-primary btn-block" onclick="updateDisplay(1)">1</button>
+      <button id="two" class="btn btn-primary btn-block" onclick="updateDisplay(2)">2</button>
+      <button id="three" class="btn btn-primary btn-block" onclick="updateDisplay(3)">3</button>
+      <button id="four" class="btn btn-primary btn-block" onclick="updateDisplay(4)">4</button>
+     </div>
+     <div class="col">
+      <button id="five" class="btn btn-primary btn-block" onclick="updateDisplay(5)">5</button>
+      <button id="six" class="btn btn-primary btn-block" onclick="updateDisplay(6)">6</button>
+      <button id="seven" class="btn btn-primary btn-block" onclick="updateDisplay(7)">7</button>
+      <button id="eight" class="btn btn-primary btn-block" onclick="updateDisplay(8)">8</button>
+      <button id="nine" class="btn btn-primary btn-block" onclick="updateDisplay(9)">9</button>
+     </div>
+     <div class="col">
+      <button id="clear" class="btn btn-warning btn-block" onclick="clearDisplay()">AC</button>
+      <button id="equals" class="btn btn-success btn-block">=</button>
+      <button id="add" class="btn btn-success btn-block" onclick="updateDisplay('add')">+</button>
+      <button id="subtract" class="btn btn-success btn-block" onclick="updateDisplay('subtract')">-</button>
+      <button id="multiply" class="btn btn-success btn-block" onclick="updateDisplay('multiply')">*</button>
+      <button id="divide" class="btn btn-success btn-block" onclick="updateDisplay('divide')">/</button>
+      <button id="decimal" class="btn btn-success btn-block" onclick="updateDisplay('decimal')">.</button>
+     </div>
+    </div>
+    
    </div>
 
     <!-- Option 2: jQuery, Popper.js, and Bootstrap JS-->
@@ -40,5 +57,7 @@
     
     <!--freeCodeCamp CDN for testing-->
     <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+    <script src="script.js"></script>
   </body>
 </html>
