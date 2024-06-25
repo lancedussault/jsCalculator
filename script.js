@@ -4,16 +4,32 @@ const operationOptions = ['add', 'subtract', 'multiply', 'divide'];
 let workingOperation = '';
 
 const updateDisplay = input => {
- if (display.innerText === "0" && operationOptions.indexOf(input) === -1) {
-  display.innerText = input;
- } else if(operationOptions.indexOf(input) >= 0) {
-  workingOperation = input;
-  trailingResult = display.innerHTML;
-  display.innerHTML = 0;
+ if (display.innerHTML === "0" && operationOptions.indexOf(input) === -1) {
+
+  if (input === "decimal") {
+   display.innerHTML = "0."
+  } else {
+   display.innerHTML = input;
+  }
+
+ } else if (operationOptions.indexOf(input) >= 0) {
+
+  if (workingOperation === '') {
+   workingOperation = input;
+   trailingResult = display.innerHTML;
+   display.innerHTML = 0;
+  } else {
+   trailingResult = calculate(trailingResult, display.innerHTML, workingOperation);
+   display.innerHTML = 0;
+   workingOperation = input;
+  }
+
  } else if(input === "equals") {
-  console.log(trailingResult, display.innerHTML);
-  display.innerHTML = calculate(parseFloat(trailingResult), parseFloat(display.innerHTML), workingOperation);
+  display.innerHTML = calculate(trailingResult, display.innerHTML, workingOperation);
   trailingResult = display.innerHTML;
+  workingOperation = '';
+ } else if(input === "decimal") {
+  
  } else {
   display.innerText += input;
  }
@@ -21,6 +37,8 @@ const updateDisplay = input => {
 
 const calculate = (firstNum, secondNum, operation) => {
  let result;
+ firstNum = parseFloat(firstNum);
+ secondNum = parseFloat(secondNum)
  switch (operation) {
   case 'add':
    result = firstNum + secondNum;
