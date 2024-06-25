@@ -8,13 +8,23 @@ const updateDisplay = input => {
 
   if (input === "decimal") {
    display.innerHTML = "0."
+  } else if(input === "negative-value") {
+
+   if (display.innerHTML.indexOf("-") === -1) {
+    display.innerHTML = "-" + display.innerHTML
+   } else if (display.innerHTML.indexOf("-") > -1) {
+    display.innerHTML = display.innerHTML.slice(1, display.innerHTML.length);
+   }
+   
   } else {
    display.innerHTML = input;
   }
 
  } else if (operationOptions.indexOf(input) >= 0) {
 
-  if (workingOperation === '') {
+  if (trailingResult === display.innerHTML) {
+   workingOperation = input;
+  } else if (workingOperation === '') {
    workingOperation = input;
    trailingResult = display.innerHTML;
    display.innerHTML = 0;
@@ -30,6 +40,18 @@ const updateDisplay = input => {
   workingOperation = '';
  } else if(input === "decimal") {
   
+  if (display.innerHTML.indexOf(".") === -1) {
+   display.innerHTML += ".";
+  }
+
+ } else if (input === "negative-value") {
+
+  if (display.innerHTML.indexOf("-") === -1) {
+   display.innerHTML = "-" + display.innerHTML
+  } else if (display.innerHTML.indexOf("-") > -1) {
+   display.innerHTML = display.innerHTML.slice(1, display.innerHTML.length);
+  }
+
  } else {
   display.innerText += input;
  }
