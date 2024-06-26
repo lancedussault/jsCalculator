@@ -2,58 +2,73 @@ const display = document.getElementById("display");
 let trailingResult = 0;
 const operationOptions = ['add', 'subtract', 'multiply', 'divide'];
 let workingOperation = '';
+let lastInputWasOperator = false;
 
 const updateDisplay = input => {
- if (display.innerHTML === "0" && operationOptions.indexOf(input) === -1) {
+ if (display.innerText === "0" && operationOptions.indexOf(input) === -1) {
 
   if (input === "decimal") {
-   display.innerHTML = "0."
-  } else if(input === "negative-value") {
-
-   if (display.innerHTML.indexOf("-") === -1) {
-    display.innerHTML = "-" + display.innerHTML
-   } else if (display.innerHTML.indexOf("-") > -1) {
-    display.innerHTML = display.innerHTML.slice(1, display.innerHTML.length);
-   }
-   
+   display.innerText = "0."
   } else {
-   display.innerHTML = input;
+   display.innerText = input;
   }
+  lastInputWasOperator = false;
 
  } else if (operationOptions.indexOf(input) >= 0) {
+   if (input === 'subtract' && (lastInputWasOperator || display.innerText === '0')) {
+    display.innerText = "-" + display.innerText;
+   } else {
+    if (lastInputWasOperator) {
+     workingOperation = input;
+    } else if (trailingResult.toString() === display.innerText) {
+     workingOperation = input;
+    } else if (workingOperation === '') {
+     workingOperation = input;
+     trailingResult = display.innerText;
+     display.innerText = 0;
+    } else {
+     trailingResult = calculate(trailingResult, display.innerText, workingOperation);
+     display.innerText = 0;
+     workingOperation = input;
+    }
+    lastInputWasOperator = true;
+   }
 
-  if (trailingResult === display.innerHTML) {
-   workingOperation = input;
-  } else if (workingOperation === '') {
-   workingOperation = input;
-   trailingResult = display.innerHTML;
-   display.innerHTML = 0;
-  } else {
-   trailingResult = calculate(trailingResult, display.innerHTML, workingOperation);
-   display.innerHTML = 0;
-   workingOperation = input;
-  }
-
- } else if(input === "equals") {
-  display.innerHTML = calculate(trailingResult, display.innerHTML, workingOperation);
-  trailingResult = display.innerHTML;
+ } else if (input === "equals") {
+  display.innerText = calculate(trailingResult, display.innerHTML, workingOperation);
+  trailingResult = 0;
   workingOperation = '';
- } else if(input === "decimal") {
+  lastInputWasOperator = false;
+ } else if (input === "decimal") {
   
-  if (display.innerHTML.indexOf(".") === -1) {
-   display.innerHTML += ".";
+  if (display.innerText.indexOf(".") === -1) {
+   display.innerText += ".";
   }
+  lastInputWasOperator = false;
 
- } else if (input === "negative-value") {
+ } else {
+  if (display.innerText === '0') {
+   display.innerText = input;
+  } else {
+   display.innerText = 
+  }
+ }
+ else if (input === "negative-value") {
 
   if (display.innerHTML.indexOf("-") === -1) {
    display.innerHTML = "-" + display.innerHTML
   } else if (display.innerHTML.indexOf("-") > -1) {
    display.innerHTML = display.innerHTML.slice(1, display.innerHTML.length);
   }
+  lastInputWasOperator = false;
 
  } else {
-  display.innerText += input;
+  if (display.innerHTML === "0") {
+   display.innerHTML = input;
+  } else {
+   display.innerText += input;
+  }
+  lastInputWasOperator = false;
  }
 }
 
@@ -80,4 +95,5 @@ const calculate = (firstNum, secondNum, operation) => {
 
 const clearDisplay = () => {
  display.innerText = 0;
+ trailingResult = 0;
 }
